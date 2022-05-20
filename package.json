@@ -1,0 +1,29 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spicysoft/spicysoft-contracts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spicysoft/spicysoft-contracts/issues"
+  },
+  "homepage": "https://github.com/spicysoft/spicysoft-contracts#readme",
+  "dependencies": {
+    "md-to-pdf": "^5.1.0",
+    "recursive-readdir": "^2.2.2",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4",
+    "ulid": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/recursive-readdir": "^2.2.1"
+  }
+}
