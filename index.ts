@@ -11,14 +11,20 @@ import { ulid } from "ulid";
       try {
         const dst = pathSrcToDst(file);
         if (fs.existsSync(dst)) {
+          console.log(`Removing ${file}`);
           await fs.promises.rm(dst);
         }
+        console.log(`Copying ${file} to ${tmpSrc}`);
         await fs.promises.cp(file, tmpSrc);
+        console.log(`Converting ${tmpSrc} to PDF`);
         const pdf = await mdToPdf({ path: tmpSrc });
+        console.log(`Writing PDF to ${dst}`);
         await fs.promises.writeFile(dst, pdf.content);
+        console.log(`Removing ${tmpSrc}`);
         await fs.promises.rm(tmpSrc);
+        console.log(`Done ${file}`);
       } catch (error) {
-        console.log(file);
+        console.error(file);
         console.error(error);
       }
     })
