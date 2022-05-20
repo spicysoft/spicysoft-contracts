@@ -3,8 +3,11 @@ const { mdToPdf } = require("md-to-pdf");
 import recursive from "recursive-readdir";
 import { ulid } from "ulid";
 
+const SrcDir = "markdown";
+const SrcDirRegExp = new RegExp(`^${SrcDir}`);
+
 (async () => {
-  const files = await recursive("./src/");
+  const files = await recursive(`./${SrcDir}/`);
   await Promise.all(
     files.map(async (file) => {
       const tmpSrc = `./.temp/${ulid()}.md`;
@@ -32,11 +35,11 @@ import { ulid } from "ulid";
 })();
 
 function pathSrcToDst(src: string): string {
-  if (!src.startsWith("src")) {
+  if (!src.startsWith(SrcDir)) {
     throw new Error(`Unexpected path structure src:'${src}'`);
   }
   if (!src.endsWith(".md")) {
     throw new Error(`Unexpected path structure src:'${src}'`);
   }
-  return src.replace(/^src/, "dist").replace(/.md$/, ".pdf");
+  return src.replace(SrcDirRegExp, "pdf").replace(/.md$/, ".pdf");
 }

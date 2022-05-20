@@ -1,5 +1,5 @@
 # https://cloudhack.jp/posts/github-actions/curriculum-vitae/
-name: Generate CV PDF
+name: マークダウンからPDFを生成する
 
 on:
   push:
@@ -14,26 +14,25 @@ jobs:
         node-version: [16.x]
 
     steps:
-      - name: Checkout repository
+      - name: チェックアウトする
         uses: actions/checkout@v2
 
-      - name: Install Japanese font
+      - name: 日本語フォントの導入
         run: sudo apt install fonts-ipafont fonts-ipaexfont
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Node.js ${{ matrix.node-version }} を利用する
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: npm setup
+      - name: NPMモジュールを準備する
         run: npm ci
 
-      - name: Convert markdowns in 'src' to pdf in 'dist'
+      - name: マークダウンをPDFに変換する
         run: npm start
-      - name: 新規に作成されたファイルを追加する
-        run: git add dist
-      - name: Commit output pdf files
+
+      - name: 生成したファイルをGitにコミットする
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           add_options: '-A'
